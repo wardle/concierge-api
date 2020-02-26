@@ -24,4 +24,3 @@ Concierge is a set of loosely-coupled *opinionated frameworks*. This means that 
 Concierge services provide lightweight application programming interfaces (APIs), defined as gRPC services with a HTTP REST gateway. These gRPC definitions can be used to easily generate stub client or server implementations. 
 
 Concrete implementations of Concierge services are currently heavily biased towards integrating with services within the National Health Service in Wales, UK. 
-

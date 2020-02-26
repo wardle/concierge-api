@@ -2,13 +2,12 @@ syntax = "proto3";
 
 package api;
 
-option go_package = "github.com/concierge/api";
+option go_package = "github.com/concierge-api";
 option java_package = "com.eldrix.concierge.api";
 option java_outer_classname = "Protos";
 option java_multiple_files = true;
 
 import "google/protobuf/timestamp.proto";
-
 
 message Patient {
     string lastname = 1;
