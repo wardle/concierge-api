@@ -4,7 +4,7 @@ Any health or care software application, whether for professionals or for patien
 
 It needs to interact with a wide range of different computing and data services, in order to operate safely and efficiently. Such applications, whether web-based or running on mobile devices, should be lightweight and ephemeral, focused on providing an outstanding user experience, and usually developed to solve a well-defined user need in a specific context, workflow or process.
 
-To support such applications, Concierge provides a range of well-defined and easy-to-use, portable application programming interfaces, grouped into modular services. 
+To support such applications, Concierge provides a range of well-defined and easy-to-use, portable application programming interfaces, grouped into modular domain-driven services. 
 
 1. Patient identity / demographics manager
 2. Professional identity manager

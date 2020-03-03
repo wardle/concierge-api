@@ -1,0 +1,104 @@
+syntax = "proto3";
+package apiv1;
+
+option go_package = "apiv1";
+option java_package = "com.eldrix.concierge.api";
+option java_outer_classname = "Protos";
+option java_multiple_files = false;
+
+import "google/protobuf/timestamp.proto";
+
+
+message Patient {
+    string lastname = 1;
+    string firstnames = 2;
+    string title = 3;
+    Gender gender = 4;
+    google.protobuf.Timestamp birth_date = 5;
+    oneof deceased {
+        google.protobuf.Timestamp deceased_date = 6;
+        bool deceased_boolean = 7;
+    }
+    string surgery = 8;         // TODO: fix to reference from ODS abstraction
+    string general_practitioner = 9; // TODO: fix to reference from ODS abstraction
+    repeated Identifier identifiers = 10;
+    repeated Address addresses = 11;
+    repeated Telephone telephones = 12;
+    repeated string emails = 13;
+}
+
+
+enum Gender {
+    UNKNOWN = 0;
+    MALE = 1;
+    FEMALE = 2;
+}
+
+message Period {
+    google.protobuf.Timestamp start = 1;
+    google.protobuf.Timestamp end = 2;
+}
+
+message Identifier {
+    string system = 1;
+    string value = 2;
+}
+
+message Address {
+    string address1 = 1;
+    string address2 = 2;
+    string address3 = 3;
+    string postcode = 4;
+    string country = 5;
+    Period period = 6;
+}
+
+message Telephone {
+    string number = 1;
+    string description = 2;
+}
+
+message HumanName {
+    Use use = 1;
+    string family = 2;
+    string given = 3;
+    repeated string prefixes = 4;
+    repeated string suffices = 5;
+    Period period = 6;
+
+    enum Use {
+        UNKNOWN=0;
+        USUAL=1;
+        OFFICIAL=2;
+        TEMPORARY=3;
+        NICKNAME=4;
+        ANONYMOUS=5;
+        OLD=6;
+        MAIDEN=7;
+    }
+}
+
+message Attachment {
+    string content_type = 1;
+    string language = 2;
+    bytes data = 3;
+    string url = 4;
+    uint64 size = 5;
+    bytes hash = 6;
+    string title = 7;
+    google.protobuf.Timestamp created = 8;
+}
+
+message Practitioner {
+    Identifier identifier = 1;
+    bool active = 2;
+    repeated HumanName names = 3;
+    repeated string emails = 4;
+    repeated Telephone telephones = 5;
+    Gender gender = 6;
+    google.protobuf.Timestamp birth_date = 7;
+    repeated Attachment photos = 8;
+
+}
+
+
