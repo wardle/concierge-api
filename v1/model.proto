@@ -93,12 +93,18 @@ message Practitioner {
     Identifier identifier = 1;
     bool active = 2;
     repeated HumanName names = 3;
-    repeated string emails = 4;
-    repeated Telephone telephones = 5;
-    Gender gender = 6;
-    google.protobuf.Timestamp birth_date = 7;
-    repeated Attachment photos = 8;
+    Gender gender = 4;
+    google.protobuf.Timestamp birth_date = 5;
+    repeated Attachment photos = 6;
+    repeated PractitionerRole roles = 7;
+    repeated string emails = 8;
+    repeated Telephone telephones = 9;
+    repeated Address work_addresses = 10;
+}
 
+message PractitionerRole {
+    string job_title = 1;           // TODO: make a codeable concept
+    Period period = 2;
 }
 
 
