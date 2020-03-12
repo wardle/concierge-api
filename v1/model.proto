@@ -90,7 +90,7 @@ message Attachment {
 }
 
 message Practitioner {
-    Identifier identifier = 1;
+    repeated Identifier identifiers = 1;
     bool active = 2;
     repeated HumanName names = 3;
     Gender gender = 4;
@@ -106,5 +106,3 @@ message PractitionerRole {
     string job_title = 1;           // TODO: make a codeable concept
     Period period = 2;
 }
-
-
