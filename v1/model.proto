@@ -103,6 +103,19 @@ message Practitioner {
 }
 
 message PractitionerRole {
-    string job_title = 1;           // TODO: make a codeable concept
+    Role role = 1;
     Period period = 2;
+}
+
+message Role {
+    Identifier identifier = 1;      // eg https://fhir.nhs.uk/STU3/CodeSystem/CareConnect-SDSJobRoleName-1|R0050 = "Consultant"
+    string job_title = 2;           // eg "Consultant Neurologist"
+    bool deprecated = 3;            // eg false    (some roles are no longer active, eg. "Senior Registrar")
+}
+
+// System represents a system for identifiers. 
+message System {
+    string name = 1;
+    string uri = 2;
+    string more_information = 3;
 }
