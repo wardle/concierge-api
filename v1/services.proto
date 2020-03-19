@@ -8,22 +8,23 @@ import "model.proto";
 import "google/protobuf/any.proto";
 import "google/api/annotations.proto";
 
-// A directory of practitioners (staff directory)
-service PractitionerDirectory {
+service Authenticator {
 
-    rpc SearchPractitioner(PractitionerSearchRequest) returns (stream Practitioner) {
+    // Login authenticates using the credentials specified and returns an authentication token
+    rpc Login(LoginRequest) returns (LoginResponse) {
         option (google.api.http) = {
-            get: "/v1/practitioner/search"
+            post: "/v1/login"
+            body: "*"
+        };
+    };
+    // Refresh refreshes a currently valid token
+    rpc Refresh(TokenRefreshRequest) returns (LoginResponse) {
+        option (google.api.http) = {
+            get: "/v1/refresh"
         };
     };
 }
 
-message PractitionerSearchRequest {
-    string system = 1;
-    string username = 2;
-    string first_name = 3;
-    string last_name = 4;
-}
 
 // Identifiers service provides resolution and mapping of identifiers (system/value tuples)
 service Identifiers {
@@ -45,4 +46,22 @@ message IdentifierMapRequest {
     string system = 1;
     string value = 2;
     string target_uri = 3;
+}
+
+
+// A directory of practitioners (staff directory)
+service PractitionerDirectory {
+
+    rpc SearchPractitioner(PractitionerSearchRequest) returns (stream Practitioner) {
+        option (google.api.http) = {
+            get: "/v1/practitioner/search"
+        };
+    };
+}
+
+message PractitionerSearchRequest {
+    string system = 1;
+    string username = 2;
+    string first_name = 3;
+    string last_name = 4;
 }

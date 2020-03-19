@@ -119,3 +119,17 @@ message System {
     string uri = 2;
     string more_information = 3;
 }
+
+
+// LoginRequest requests authentication for the (service account/user account) using the (secret/password) specified.
+// An authentication request for a user account will usually need to be submitted with a token from a service account.
+message LoginRequest {
+    Identifier user = 1;
+    string password = 2;
+}
+message TokenRefreshRequest {}
+
+// LoginResponse is returned for a valid authentication
+message LoginResponse {
+    string token = 1;
+}
