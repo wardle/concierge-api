@@ -1,8 +1,8 @@
 # Concierge - providing health and care computing and data services
 
-Any health or care software application, whether for professionals or for patients, cannot work alone. 
+Health or care software applications, whether for professionals or for patients, cannot work alone. 
 
-It needs to interact with a wide range of different computing and data services, in order to operate safely and efficiently. Such applications, whether web-based or running on mobile devices, should be lightweight and ephemeral, focused on providing an outstanding user experience, and usually developed to solve a well-defined user need in a specific context, workflow or process.
+Such applications needs to interact with a wide range of different computing and data services, in order to operate safely and efficiently. Whether they are web-based or running on mobile devices, they should be lightweight and ephemeral, focused on providing an outstanding user experience, and usually developed to solve a well-defined user need in a specific context, workflow or process. 
 
 To support such applications, Concierge provides a range of well-defined and easy-to-use, portable application programming interfaces, grouped into modular domain-driven services. 
 
