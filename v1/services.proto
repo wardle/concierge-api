@@ -35,7 +35,7 @@ service Identifiers {
         };
     };
 
-    rpc MapIdentifier(IdentifierMapRequest) returns (Identifier) {
+    rpc MapIdentifier(IdentifierMapRequest) returns (stream Identifier) {
         option (google.api.http) = {
             get: "/v1/identifier/{value}/map"
         };
