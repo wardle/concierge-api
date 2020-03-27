@@ -8,7 +8,6 @@ option java_multiple_files = false;
 
 import "google/protobuf/timestamp.proto";
 
-
 message Patient {
     string lastname = 1;
     string firstnames = 2;
@@ -26,7 +25,6 @@ message Patient {
     repeated Telephone telephones = 12;
     repeated string emails = 13;
 }
-
 
 enum Gender {
     UNKNOWN = 0;
@@ -132,4 +130,29 @@ message TokenRefreshRequest {}
 // LoginResponse is returned for a valid authentication
 message LoginResponse {
     string token = 1;
+}
+
+message PublishDocumentRequest {
+    Identifier id = 1;  // unique identifier for this document, value typically being a UUID but some implementations will use system/primarykey approach
+    Patient patient = 2;  // patient to which this refers - 
+    repeated Identifier authors = 3; // author(s) of the document
+    repeated Identifier responsible = 4; // responsible author(s) (e.g. consultant)
+    Identifier administered = 5; // administered/typed/prepared by  (may be same as author)
+    Identifier encounter = 6; // encounter to which this document refers
+    string title = 7; // title of this document
+    google.protobuf.Timestamp date_time = 8;   // logical date/time of the document - may be the "event" date time
+    google.protobuf.Timestamp typed_date_time = 9; // when document typed
+    google.protobuf.Timestamp signed_date_time = 10; // when document signed off
+}
+
+message CompositionStatus {
+    Status status = 1;
+
+    enum Status {
+        UNKNOWN = 0;
+        DRAFT = 1;
+        FINAL = 2;
+        AMENDED = 3;
+        IN_ERROR = 4;
+    }
 }
