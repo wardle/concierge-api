@@ -68,15 +68,16 @@ message PublishDocumentRequest {
     Identifier id = 1;  // unique identifier for this document, value typically being a UUID but some implementations will use system/primarykey approach
     Patient patient = 2;  // patient to which this refers - 
     repeated Identifier authors = 3; // author(s) of the document
-    repeated Identifier responsible = 4; // responsible author(s) (e.g. consultant)
-    Identifier administrator = 5; // administrator/typed/prepared by  (may be same as author)
-    Identifier encounter = 6; // encounter to which this document refers
-    repeated Identifier recipients = 7; // recipients - e.g. the patient, other practitioners, other teams. Resolution of these is transport specific.
-    string title = 8; // title (description) of this document
-    google.protobuf.Timestamp date_time = 9;   // logical date/time of the document - may be the "event" date time
-    google.protobuf.Timestamp typed_date_time = 10; // when document typed
-    google.protobuf.Timestamp signed_date_time = 11; // when document signed off
-    Attachment data = 12;
+    repeated Identifier signed_by = 4;  // signed by - may be author or multiple, of course
+    repeated Identifier responsible = 5; // responsible author(s) (e.g. consultant)
+    Identifier administrator = 6; // administrator/typed/prepared by  (may be same as author)
+    Identifier encounter = 7; // encounter to which this document refers
+    repeated Identifier recipients = 8; // recipients - e.g. the patient, other practitioners, other teams. Resolution of these is transport specific.
+    string title = 9; // title (description) of this document
+    google.protobuf.Timestamp date_time = 10;   // logical date/time of the document - may be the "event" date time
+    google.protobuf.Timestamp typed_date_time = 11; // when document typed
+    google.protobuf.Timestamp signed_date_time = 12; // when document signed off
+    Attachment data = 13;
 }
 
 // PublishDocumentResponse is returned on successful publication
