@@ -6,6 +6,7 @@ option java_package = "com.eldrix.concierge.api";
 
 import "model.proto";
 import "google/protobuf/any.proto";
+import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";
 
 service Authenticator {
@@ -49,6 +50,41 @@ message IdentifierMapRequest {
 }
 
 
+service DocumentService {
+
+    rpc PublishDocument(PublishDocumentRequest) returns (PublishDocumentResponse) {
+        option (google.api.http) = {
+            post: "/v1/document/publish"
+            body: "data.data"
+        };
+    };
+}
+
+// PublishDocumentRequest publishes the document
+// The recipient identifier list contains identifiers of those who need to be notified about the document.
+// The resolution of *how* that resolution occurs is at the discretion of the transport, so may conceivably
+// be postal mail, email or some other notification / workflow system.
+message PublishDocumentRequest {
+    Identifier id = 1;  // unique identifier for this document, value typically being a UUID but some implementations will use system/primarykey approach
+    Patient patient = 2;  // patient to which this refers - 
+    repeated Identifier authors = 3; // author(s) of the document
+    repeated Identifier responsible = 4; // responsible author(s) (e.g. consultant)
+    Identifier administrator = 5; // administrator/typed/prepared by  (may be same as author)
+    Identifier encounter = 6; // encounter to which this document refers
+    repeated Identifier recipients = 7; // recipients - e.g. the patient, other practitioners, other teams. Resolution of these is transport specific.
+    string title = 8; // title (description) of this document
+    google.protobuf.Timestamp date_time = 9;   // logical date/time of the document - may be the "event" date time
+    google.protobuf.Timestamp typed_date_time = 10; // when document typed
+    google.protobuf.Timestamp signed_date_time = 11; // when document signed off
+    Attachment data = 12;
+}
+
+// PublishDocumentResponse is returned on successful publication
+message PublishDocumentResponse {
+    Identifier id = 1;
+}
+
+
 // A directory of practitioners (staff directory)
 service PractitionerDirectory {
 
@@ -65,3 +101,5 @@ message PractitionerSearchRequest {
     string first_name = 3;
     string last_name = 4;
 }
+
+
