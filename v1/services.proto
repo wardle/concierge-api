@@ -6,7 +6,6 @@ option java_package = "com.eldrix.concierge.api";
 
 import "model.proto";
 import "google/protobuf/any.proto";
-import "google/protobuf/timestamp.proto";
 import "google/api/annotations.proto";
 
 service Authenticator {
@@ -26,7 +25,7 @@ service Authenticator {
     };
 }
 
-
+//////////////////////////////////////////////////////////////////////////////
 // Identifiers service provides resolution and mapping of identifiers (system/value tuples)
 service Identifiers {
 
@@ -49,35 +48,23 @@ message IdentifierMapRequest {
     string target_uri = 3;
 }
 
-
+//////////////////////////////////////////////////////////////////////////////
 service DocumentService {
 
     rpc PublishDocument(PublishDocumentRequest) returns (PublishDocumentResponse) {
         option (google.api.http) = {
             post: "/v1/document/publish"
-            body: "data.data"
+            body: "document.data.data"
         };
     };
 }
 
-// PublishDocumentRequest publishes the document
+// PublishDocumentRequest publishes the document(s)
 // The recipient identifier list contains identifiers of those who need to be notified about the document.
 // The resolution of *how* that resolution occurs is at the discretion of the transport, so may conceivably
 // be postal mail, email or some other notification / workflow system.
 message PublishDocumentRequest {
-    Identifier id = 1;  // unique identifier for this document, value typically being a UUID but some implementations will use system/primarykey approach
-    Patient patient = 2;  // patient to which this refers - 
-    repeated Identifier authors = 3; // author(s) of the document
-    repeated Identifier signed_by = 4;  // signed by - may be author or multiple, of course
-    repeated Identifier responsible = 5; // responsible author(s) (e.g. consultant)
-    Identifier administrator = 6; // administrator/typed/prepared by  (may be same as author)
-    Identifier encounter = 7; // encounter to which this document refers
-    repeated Identifier recipients = 8; // recipients - e.g. the patient, other practitioners, other teams. Resolution of these is transport specific.
-    string title = 9; // title (description) of this document
-    google.protobuf.Timestamp date_time = 10;   // logical date/time of the document - may be the "event" date time
-    google.protobuf.Timestamp typed_date_time = 11; // when document typed
-    google.protobuf.Timestamp signed_date_time = 12; // when document signed off
-    Attachment data = 13;
+    Document document = 1;
 }
 
 // PublishDocumentResponse is returned on successful publication
@@ -85,7 +72,29 @@ message PublishDocumentResponse {
     Identifier id = 1;
 }
 
+//////////////////////////////////////////////////////////////////////////////
+// a work-in-progress
+service NotificationService {
 
+    rpc Notify(NotificationRequest) returns (NotificationResponse) {
+        option (google.api.http) = {
+            post: "/v1/notify"
+            body: "*"
+        };
+    };
+}
+
+message NotificationRequest {
+    Identifier recipient = 1;       // recipient of this notification
+    Patient patient = 2;            // patient to which this notification refers
+}
+
+// incomplete
+message NotificationResponse {
+    Identifier id = 1;          // unique identifier for this notification
+}
+
+//////////////////////////////////////////////////////////////////////////////
 // A directory of practitioners (staff directory)
 service PractitionerDirectory {
 
